@@ -106,17 +106,25 @@ public class LCProgressHUD: NSView {
     /// - Parameter imageName: 图片文件名（例如 `"success_white@2x.png"`）
     /// - Returns: 加载的 `NSImage` 对象；如果加载失败，则返回空白 `NSImage()`
     private class func bundleImage(_ imageName: String) -> NSImage {
-        // 获取 LCProgressHUD.bundle 的 URL
+        #if SWIFT_PACKAGE
+        // 如果是通过 Swift Package Manager 使用
+        guard let imagePath = Bundle.module.path(forResource: imageName, ofType: ""),
+              let image = NSImage(contentsOfFile: imagePath) else {
+            print("❌ 图片加载失败（SPM）: \(imageName)")
+            return NSImage() // 加载失败返回空白图片
+        }
+        return image
+        #else
+        // 如果是通过 CocoaPods 使用
         let url = Bundle.main.url(forResource: "LCProgressHUD", withExtension: "bundle")
-        
-        // 尝试从 bundle 中构造完整的图片路径并加载图片
         guard let bundleUrl = url,
               let path = Bundle(url: bundleUrl)?.bundlePath.appendingFormat("/\(imageName)"),
               let image = NSImage(contentsOfFile: path) else {
-                  return NSImage() // 如果加载失败，返回空白图片
-              }
-        
+            print("❌ 图片加载失败（CocoaPods）: \(imageName)")
+            return NSImage() // 加载失败返回空白图片
+        }
         return image
+        #endif
     }
     
 
