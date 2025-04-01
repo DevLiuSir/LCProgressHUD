@@ -1,6 +1,6 @@
 //
 //  LCProgressHUDStyle.swift
-//  LCLCProgressHUD
+//  LCProgressHUD
 //
 //  Created by DevLiuSir on 2021/6/24.
 //

@@ -1,6 +1,6 @@
 //
-//  LCLCProgressHUD.swift
-//  LCLCProgressHUD
+//  LCProgressHUD.swift
+//  LCProgressHUD
 //
 //  Created by DevLiuSir on 2021/6/24.
 //
